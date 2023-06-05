@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_sales_order_certificate_verification" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="string">Student Name</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sale_order_template_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='validity_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='pricelist_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_template_id']" position="attributes">
+                <attribute name="string">Course</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='optional_products']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='customer_signature']" position="attributes">
+                <attribute name="string">Student Signature</attribute>
+            </xpath>
+            <xpath expr="//page[@name='order_lines']" position="attributes">
+                <attribute name="string">Courses</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="course_start_datetime" required="1"/>
+                <field name="course_end_datetime" required="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="certificate_tree_view" model="ir.ui.view">
+        <field name="name">certificate.view.tree</field>
+        <field name="model">certificate.certificate</field>
+        <field name="arch" type="xml">
+            <tree string="Certificates">
+                <header>
+                    <button string="Print Excel" name="generate_excel" type="object"
+                            class="oe_highlight"/>
+                </header>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="address"/>
+                <field name="phone"/>
+                <field name="course_id"/>
+                <field name="course_status"/>
+                <field name="fee_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="certificate_form_view" model="ir.ui.view">
+        <field name="name">certificate.view.form</field>
+        <field name="model">certificate.certificate</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <label for="partner_id" string="Address" required="1"/>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State"
+                                       options='{"no_open": True, "no_create": True}'/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country"
+                                       options='{"no_open": True, "no_create": True}'/>
+                            </div>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="sale_order_id"/>
+                            <field name="course_id"/>
+                            <field name="course_start_datetime" required="1"/>
+                            <field name="course_end_datetime" required="1"/>
+                            <field name="course_status"/>
+                            <field name="fee_status"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="excel_download" model="ir.ui.view">
+        <field name="name">excel.download.view.form</field>
+        <field name="model">ir.attachment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="datas"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="certificate_search_view" model="ir.ui.view">
+        <field name="name">certificate.view.search</field>
+        <field name="model">certificate.certificate</field>
+        <field name="arch" type="xml">
+            <search string="Certificate">
+                <field name="name" string="Certificate No"/>
+                <field name="partner_id" string="Student name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="certificate_certificate_action" model="ir.actions.act_window">
+        <field name="name">Certificate Verification</field>
+        <field name="res_model">certificate.certificate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref=""/>
+    </record>
+
+    <menuitem
+            id="certificate_root_menu"
+            name="Certificate"
+            sequence="1"/>
+
+    <menuitem
+            id="certificate_parent_menu"
+            name="Certificates"
+            parent="certificate_verification.certificate_root_menu"
+            action="certificate_verification.certificate_certificate_action"
+            sequence="1"/>
+
+
+</odoo>
